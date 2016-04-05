@@ -1,42 +1,44 @@
 import processing.video.*;
-Movie movie;
+Movie housevid;
 
 void setup() {
   fullScreen();
-  frameRate(30);
-  movie = new Movie(this, "house.mp4");
-  movie.loop();
-  movie.loadPixels();
-  // Only need to load the pixels[] array once, because we're only
-  // manipulating pixels[] inside draw(), not drawing shapes.
+  frameRate(25);
+  housevid = new Movie(this, "house.mp4");
+  housevid.loop();
+  housevid.loadPixels();
     loadPixels();}
   void movieEvent(Movie m) {
     m.read();
 }
 
 void draw() {
-for (int x = 0; x < movie.width; x++) {
-for (int y = 0; y < movie.height; y++ ) {
-      int loc = x + y*movie.width;
-      // Get the R,G,B values from image
-      float r,g,b;
-      r = red (movie.pixels[loc]);
-      g = green (movie.pixels[loc]);
-      b = blue (movie.pixels[loc]);
-      // Calculate an amount to change brightness based on proximity to the mouse
-      float maxdist = 100;//dist(0,0,width,height);
+    for (int x = 0; x < housevid.width; x++) {
+    for (int y = 0; y < housevid.height; y++ ) {
+      int lock = x + y*housevid.width;
+      
+      float red,green,blue;
+      
+      red = red (housevid.pixels[lock]);
+      green = green (housevid.pixels[lock]);
+      blue = blue (housevid.pixels[lock]);
+      
+      float maxdist = 200; //edit this number for the size of the light
+      
       float d = dist(x, y, mouseX, mouseY);
-      float adjustbrightness = 255*(maxdist-d)/maxdist;
-      r += adjustbrightness;
-      g += adjustbrightness;
-      b += adjustbrightness;
-      // Constrain RGB to make sure they are within 0-255 color range
-      r = constrain(r, 0, 255);
-      g = constrain(g, 0, 255);
-      b = constrain(b, 0, 255);
-      // Make a new color and set pixel in the window
-      color c = color(r, g, b);
-      //color c = color(r);
+      float adjustbrightness = 255*(maxdist-d)/maxdist; //how dark the screen is
+      
+      red += adjustbrightness;
+      green += adjustbrightness;
+      blue += adjustbrightness;
+      
+      red = constrain(red, 0, 255);
+      green = constrain(green, 0, 255);
+      blue = constrain(blue, 0, 255);
+      
+      color c = color(red, green, blue);
+      //color c = color(r);      
+      //only use above if only use red values, black and white
       pixels[y*width + x] = c;
     }
   }
