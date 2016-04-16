@@ -4,7 +4,7 @@ Movie housevid;
 void setup() {
   fullScreen();
   frameRate(25);
-  housevid = new Movie(this, "HOUSEhaunted.mp4");
+  housevid = new Movie(this, "Haunted.mp4");
   housevid.loop();
   housevid.loadPixels();
     loadPixels();}
@@ -23,7 +23,7 @@ void draw() {
       green = green (housevid.pixels[lock]);
       blue = blue (housevid.pixels[lock]);
       
-      float maxdist = 200; //edit this number for the size of the light
+      float maxdist = 100; //edit this number for the size of the light
       
       float d = dist(x, y, mouseX, mouseY);
       float adjustbrightness = 255*(maxdist-d)/maxdist; //how dark the screen is
